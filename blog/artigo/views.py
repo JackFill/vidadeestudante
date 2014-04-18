@@ -81,28 +81,5 @@ class ArtigoCreateView(CreateView):
 
 
 
-#add artigo
-def adiciona(request):
-	
-	if request.method=='POST':
-		form = FormAddArtigo(request.POST, request.FILES)
-		if form.is_valid():
-			dados = form.cleaned_data
-			item = Artigo(**dados)
-			item.save()
-			#html exibindo quando for salvo
-			return render_to_response("save.tpl", {})
-	else:
-		form=FormAddArtigo()
-		
-	return render_to_response("artigo_add.tpl", {'form':form}, context_instance=RequestContext(request))
 
-
-
-def item(request, nr_item):
-		try:
-			item = Artigo.objects.get(pk=nr_item)
-		except Artigo.DoesNotExist:
-			raise Http404()
-		return render_to_response('item.tpl', {'item':item})
 		
